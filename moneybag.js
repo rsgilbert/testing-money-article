@@ -40,11 +40,13 @@ class MoneyBag extends AbstractMoney {
     
     /**
      * @override
-     * @param {MoneyBag} moneyBag 
+     * @param {AbstractMoney} abstractMoney 
      */
-    equals(moneyBag) {
+    equals(abstractMoney) {
+        if(this.simplify()?.equals(abstractMoney)) 
+            return true;
         return this._monies.every(thisMoney =>
-            moneyBag?.monies?.some(otherMoney => 
+            abstractMoney?.monies?.some(otherMoney => 
                 otherMoney.equals(thisMoney)
             )
         )
@@ -78,6 +80,16 @@ class MoneyBag extends AbstractMoney {
      */
     addMoneyBag(moneyBag) {
         return new MoneyBag(...moneyBag._monies, ...this._monies);
+    }
+
+    /**
+     * @override
+     * @returns {Money | undefined}
+     */
+    simplify() {
+        if(this._monies.length === 1) {
+            return this._monies[0];
+        }
     }
 }
 

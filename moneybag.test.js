@@ -50,7 +50,6 @@ describe('moneybag', () => {
             new Money(4, 'USD'));
         expect(mb4.equals(mb5)).toBe(true);
         expect(mb6.equals(mb5)).toBe(false);
-        console.log(new MoneyBag(m1))
         expect(new MoneyBag(m1).equals(m1)).toBe(true)
     })
 })
