@@ -22,15 +22,25 @@ class Money extends AbstractMoney {
      * name of the original method followed by the classname of the receiver.
      * @override
      * @param {AbstractMoney} money 
-     * @returns IMoney
+     * @returns { AbstractMoney }
      */
     add(money) {
-        // return money.addMoney(this);
-        if(money.currency === this.currency)
-            return new Money(money.amount + this.amount, this.currency);
-        else 
-            return new MoneyBag(this, money);
+        return money.addMoney(this);
+        // if(money.currency === this.currency)
+        //     return new Money(money.amount + this.amount, this.currency);
+        // else 
+        //     return new MoneyBag(this, money);
     }
+
+    /**
+     * 
+     * @param {Money} money 
+     * @return { AbstractMoney }
+     */
+    addMoney(money){
+
+    }
+
     /** 
      * @override
      * @param { AbstractMoney } other  */
