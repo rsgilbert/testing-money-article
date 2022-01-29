@@ -1,5 +1,8 @@
 const Money = require("./money");
 const assert = require('assert');
+const { describe, test, expect, beforeEach } = require('@jest/globals');
+const MoneyBag = require("./moneybag");
+
 
 describe('money', () => {
     let m1;
@@ -9,13 +12,8 @@ describe('money', () => {
         m2 = new Money(50, 'UGX');
     })
     test('simple add', () => {
-        // Code which creates the objects we will interact
-        // with during the test. Called a test fixture.
-     
         let expected = new Money(62, 'UGX');
-        // Code which exercises the objects in the fixture.
         let result = m1.add(m2);
-        // Code which verifies the result.
         expect(result.amount).toBe(expected.amount);
         expect(result.currency).toBe(expected.currency);
     });
@@ -27,4 +25,15 @@ describe('money', () => {
         assert(!m1.equals(m2));
         assert(m1.equals(new Money(12, 'UGX')));
     });
+
+    test.skip('mixed currency add', () => {
+        // 2 USD + 3 UGX = [2 USD, 3 UGX]
+        let m1 = new Money(2 ,'USD');
+        let m2 = new Money(3, 'UGX');
+        let expected = new MoneyBag(m1, m2);
+        const result = m1.add(m2);
+        // console.log(expected._monies, result._monies)
+        expect(result).toBe(expected);
+    })
+
 })

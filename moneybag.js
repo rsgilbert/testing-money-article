@@ -11,7 +11,10 @@ class MoneyBag {
      * @param  {...Money} monies 
      */
     constructor(...monies) {
-        monies.forEach.call(this, this.appendMoney);
+        const self = this;
+        for(let i = 0; i < monies.length; i++) {
+            self.appendMoney(monies[i])
+        }
     }
 
     /**
@@ -27,6 +30,14 @@ class MoneyBag {
             this._monies.push(money);
         }
 
+    }
+
+    equals(moneybag) {
+        if(moneybag?._monies === this._monies)
+            return true;
+        else {
+            return false;
+        }
     }
 }
 
