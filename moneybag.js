@@ -8,6 +8,8 @@ class MoneyBag extends AbstractMoney {
      */
     _monies = [];
 
+    get monies() { return this._monies; }
+
     /**
      * 
      * @param  {...Money} monies 
@@ -25,26 +27,27 @@ class MoneyBag extends AbstractMoney {
      * @param {Money} money 
      */
     appendMoney(money) {
-        let foundMoney = this._monies.find(m => m.currency === money.currency);
-        if(foundMoney) {
-            foundMoney.add(money);
+        let foundMoneyIdx = this._monies.findIndex(m => m.currency === money.currency);
+        if(foundMoneyIdx !== -1) {
+            const newMoney = this._monies[foundMoneyIdx].add(money);
+            this._monies[foundMoneyIdx] = newMoney;
         }
         else {
             this._monies.push(money);
         }
-
     }
 
+    
     /**
      * @override
-     * @param {*} moneybag 
+     * @param {MoneyBag} moneyBag 
      */
-    equals(moneybag) {
-        if(moneybag?._monies === this._monies)
-            return true;
-        else {
-            return false;
-        }
+    equals(moneyBag) {
+        return this._monies.every(thisMoney =>
+            moneyBag?.monies?.some(otherMoney => 
+                otherMoney.equals(thisMoney)
+            )
+        )
     }
 
     /**
@@ -53,10 +56,28 @@ class MoneyBag extends AbstractMoney {
      * name of the original method followed by the classname of the receiver.
      * @override
      * @param {AbstractMoney} money
-     * @returns IMoney
+     * @returns {AbstractMoney}
      */
     add(money) {
         return money.addMoneyBag(this);
+    }
+
+    /**
+     * @override
+     * @param {Money} money 
+     * @returns {AbstractMoney}
+     */
+    addMoney(money) {
+        return new MoneyBag(money, ...this._monies);
+    }
+
+    /**
+     * @override
+     * @param {MoneyBag} moneyBag
+     * @returns {AbstractMoney}
+     */
+    addMoneyBag(moneyBag) {
+        return new MoneyBag(...moneyBag._monies, ...this._monies);
     }
 }
 

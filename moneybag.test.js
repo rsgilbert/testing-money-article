@@ -36,5 +36,21 @@ describe('moneybag', () => {
         expect(mb1.equals(null)).toBe(false);
         expect(mb1.equals(mb2)).toBe(false);
         expect(mb2.equals(mb2)).toBe(true);
+        let mb4 = new MoneyBag(new Money(2, 'UGX'),
+            new Money(10, 'USD'),
+            new Money(3, 'USD'));
+        let mb5 = new MoneyBag(new Money(1, 'UGX'),
+            new Money(1, 'UGX'),
+            new Money(2, 'USD'),
+            new Money(7, 'USD'),
+            new Money(4, 'USD'));
+        let mb6 = new MoneyBag(new Money(1, 'UGX'),
+            new Money(2, 'USD'),
+            new Money(7, 'USD'),
+            new Money(4, 'USD'));
+        expect(mb4.equals(mb5)).toBe(true);
+        expect(mb6.equals(mb5)).toBe(false);
+        console.log(new MoneyBag(m1))
+        expect(new MoneyBag(m1).equals(m1)).toBe(true)
     })
 })

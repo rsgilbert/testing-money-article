@@ -26,11 +26,7 @@ class Money extends AbstractMoney {
      */
     add(money) {
         return money.addMoney(this);
-        // if(money.currency === this.currency)
-        //     return new Money(money.amount + this.amount, this.currency);
-        // else 
-        //     return new MoneyBag(this, money);
-    }
+   }
 
     /**
      * 
@@ -38,8 +34,21 @@ class Money extends AbstractMoney {
      * @return { AbstractMoney }
      */
     addMoney(money){
-
+        if(money.currency === this.currency)
+            return new Money(money.amount + this.amount, this.currency);
+        else 
+            return new MoneyBag(this, money);
     }
+
+     /**
+     * We add the money to the moneybag instead.
+     * @param {MoneyBag} moneyBag
+     * @return { AbstractMoney }
+     */
+    addMoneyBag(moneyBag){
+        return moneyBag.addMoney(this);
+    }
+
 
     /** 
      * @override
