@@ -11,7 +11,7 @@ class MoneyBag {
      * @param  {...Money} monies 
      */
     constructor(...monies) {
-        monies.forEach(appendMoney);
+        monies.forEach.call(this, this.appendMoney);
     }
 
     /**
@@ -29,3 +29,5 @@ class MoneyBag {
 
     }
 }
+
+module.exports = MoneyBag;
